@@ -15,7 +15,7 @@ jobs:
           node-version: ">=20.11.0"
       - name: "Dependencies"
         run: |
-          npm ci --omit=dev
+          npm ci
       - name: "Build"
         run: |
           npm run build
