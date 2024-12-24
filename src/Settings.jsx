@@ -8,6 +8,7 @@ import { t } from 'i18next'
 import OptionsMenu from './OptionsMenu'
 import { withTranslation } from 'react-i18next'
 import { autoFocus } from './focus'
+import { useNavigate } from 'react-router'
 
 const getLanguageName = (contextLanguage, languageCode) => {
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DisplayNames
@@ -17,25 +18,14 @@ const getLanguageName = (contextLanguage, languageCode) => {
 };
 
 function SettingsComponent() {
-  const [languageMenuVisible, setLanguageVisible] = useState(false);
-
-  const setLanguageMenuVisible = (isVisible) => {
-    // Update history when the menu is shown
-    // This allows the back button to hide the menu
-    if (!languageMenuVisible && isVisible) {
-      location.hash = '#language';
-      history.pushState({ menu: true }, '', location.hash);
-    } else if (languageMenuVisible && !isVisible) {
-      location.hash = '';
-      history.back();
-    }
-
-    setLanguageVisible(isVisible);
-  };
+  const navigate = useNavigate();
+  const [languageMenuVisible, setLanguageMenuVisible] = useState(location.hash.includes('#menu'));
 
   const handlePopState = () => {
-    if (languageMenuVisible)
+    if (languageMenuVisible) {
+      navigate(-1);
       setLanguageMenuVisible(false);
+    }
   };
 
   // Update the menu visibility when user presses back button
@@ -51,7 +41,7 @@ function SettingsComponent() {
       // This is the default behavior of Cloud Phone
       // It cannot be overriden by widgets
       case 'end':
-        history.back();
+        navigate(-1);
         break;
     }
   };
@@ -82,7 +72,10 @@ function SettingsComponent() {
         </div>
       </section>
 
-      <OptionsMenu onMenuItemSelected={onMenuItemSelected} visible={languageMenuVisible}>
+      <OptionsMenu
+        onMenuItemSelected={onMenuItemSelected}
+        visible={languageMenuVisible}
+        onClose={() => setLanguageMenuVisible(false)}>
         {Object.keys(i18n.services.resourceStore.data).map((langCode) =>
           <span key={langCode}>{getLanguageName(i18n.resolvedLanguage, langCode)}</span>
         )}

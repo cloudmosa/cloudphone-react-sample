@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router';
 import './App.css'
 import { autoFocus } from './focus';
 import Header from './Header'
@@ -5,13 +6,15 @@ import SoftKeyBar from './SoftKeyBar'
 import { t } from 'i18next'
 
 function About() {
+  const navigate = useNavigate();
+
   // Toggle menu visibility and go back
   const onSoftKeyClick = (position) => {
     switch (position) {
       // This is the default behavior of Cloud Phone
       // It cannot be overriden by widgets
       case 'end':
-        history.back();
+        navigate(-1);
         break;
     }
   };

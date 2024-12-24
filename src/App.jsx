@@ -1,62 +1,39 @@
 /* eslint-disable react-refresh/only-export-components */
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import './App.css'
 import Header from './Header'
 import OptionsMenu from './OptionsMenu'
 import SoftKeyBar from './SoftKeyBar'
 import { t } from 'i18next'
-import { Link } from 'react-router'
+import { Link, useLocation, useNavigate } from 'react-router'
 import { withTranslation } from 'react-i18next'
 import { autoFocus } from './focus'
 
 function AppComponent() {
-  const [menuVisible, setVisible] = useState(false);
-
-  const setMenuVisible = (isVisible) => {
-    // Update history when the menu is shown
-    // This allows the back button to hide the menu
-    if (!menuVisible && isVisible) {
-      location.hash = '#menu';
-      history.pushState({ menu: true }, '', location.hash);
-    } else if (menuVisible && !isVisible) {
-      location.hash = '';
-      history.back();
-    }
-
-    setVisible(isVisible);
-  };
-
-  const handlePopState = () => {
-    if (menuVisible)
-      setMenuVisible(false);
-  };
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [menuVisible, setMenuVisible] = useState(location.hash.includes('#menu'));
 
   // Toggle menu visibility and go back
   const onSoftKeyClick = (position) => {
     switch (position) {
       case 'start':
-        setMenuVisible(!menuVisible);
+        if (menuVisible)
+          navigate(-1);
+        else
+          setMenuVisible(!menuVisible);
         break;
       case 'center':
         break;
       // This is the default behavior of Cloud Phone
       // It cannot be overriden by widgets
       case 'end':
-        history.back();
+        navigate(-1);
         break;
     }
   };
 
-  const onMenuItemSelected = () => {
-    setMenuVisible(false);
-  };
-
-  // Update the menu visibility when user presses back button
-  useEffect(() => {
-    window.addEventListener("popstate", handlePopState);
-
-    return () => window.removeEventListener("popstate", handlePopState);
-  });
+  const onMenuItemSelected = () => setMenuVisible(false);
 
   return (
     <>
@@ -67,7 +44,10 @@ function AppComponent() {
         <p>{t('Home_Description')}</p>
       </section>
 
-      <OptionsMenu onMenuItemSelected={onMenuItemSelected} visible={menuVisible}>
+      <OptionsMenu
+        onMenuItemSelected={onMenuItemSelected}
+        visible={menuVisible}
+        onClose={() => setMenuVisible(false)}>
         <Link to="about">
           {t('About')}
         </Link>
