@@ -1,11 +1,15 @@
-import { useEffect, useState } from 'react';
+/* eslint-disable react-refresh/only-export-components */
+import { useEffect, useState } from 'react'
 import './App.css'
 import Header from './Header'
-import OptionsMenu from './OptionsMenu';
+import OptionsMenu from './OptionsMenu'
 import SoftKeyBar from './SoftKeyBar'
-import { t } from 'i18next';
+import { t } from 'i18next'
+import { Link } from 'react-router'
+import { withTranslation } from 'react-i18next'
+import { autoFocus } from './focus'
 
-function App() {
+function AppComponent() {
   const [menuVisible, setVisible] = useState(false);
 
   const setMenuVisible = (isVisible) => {
@@ -56,26 +60,29 @@ function App() {
 
   return (
     <>
-      <Header title="Cloud Phone" />
+      <Header title={t('Cloud Phone')} />
 
-      <div id="app">
+      <section id="app" ref={autoFocus}>
         <h2>{t('React Demo')}</h2>
-        <p>
-          This is a demo widget for Cloud Phone using <a href="https://react.dev/">React</a>.
-          Learn more at <a href="https://cloudfone.com">cloudfone.com</a>
-        </p>
-      </div>
+        <p>{t('Home_Description')}</p>
+      </section>
 
       <OptionsMenu onMenuItemSelected={onMenuItemSelected} visible={menuVisible}>
-        <span>{t('About')}</span>
-        <span>{t('Settings')}</span>
-        <span>{t('Privacy')}</span>
+        <Link to="about">
+          {t('About')}
+        </Link>
+        <Link to="settings">
+          {t('Settings')}
+        </Link>
+        <a href="https://www.cloudfone.com/dev-privacy" target="_self">
+          {t('Privacy')}
+        </a>
       </OptionsMenu>
 
       <SoftKeyBar
         buttons = {{
           start: { icon: 'menu' },
-          center: { text: t('Select') },
+          center: { icon: 'select', title: t('Select') },
           end: { icon: 'back' },
         }}
         onSoftKeyClick={onSoftKeyClick} />
@@ -83,4 +90,4 @@ function App() {
   )
 }
 
-export default App
+export default withTranslation()(AppComponent)

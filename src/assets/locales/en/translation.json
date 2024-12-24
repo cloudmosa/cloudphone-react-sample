@@ -4,5 +4,8 @@
     "About": "About",
     "Settings": "Settings",
     "Privacy": "Privacy",
-    "Select": "Select"
+    "Select": "Select",
+    "Language": "Language",
+    "Home_Description": "This is a demo widget for Cloud Phone using React. Learn more at https://cloudfone.com",
+    "About_Description": "Welcome to the About page! Cloud Phone by CloudMosa provides technology that enables feature phones to run compelling applications, making modern internet access possible for the world's most underserved communities."
 }

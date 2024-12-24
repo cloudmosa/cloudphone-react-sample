@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import './OptionsMenu.css'
 import React, { useEffect, useRef, useState } from 'react'
+import { autoFocusFirstFocusable } from './focus';
 
 function OptionsMenu({
   visible = false,
@@ -10,16 +11,9 @@ function OptionsMenu({
   const menuRef = useRef(null);
   const [focusedIndex, setFocusedIndex] = useState(0);
 
-  // Focus the first item by default
-  useEffect(() => {
-    if (menuRef.current) {
-      const items = menuRef.current.querySelectorAll('[role="menuitem"]');
-      if (items[0]) items[0].focus();
-    }
-  }, []);
-
   // Handle key navigation (Arrow Up, Arrow Down) and selection (Enter)
   const handleKeyDown = (e) => {
+    if (!visible) return;
     const items = menuRef.current.querySelectorAll('[role="menuitem"]');
     if (!items.length) return;
 
@@ -34,8 +28,13 @@ function OptionsMenu({
         break;
       case 'Enter':
         e.preventDefault();
-        if (items[focusedIndex] && onMenuItemSelected) {
-          onMenuItemSelected(children[focusedIndex]);
+
+        if (items[focusedIndex]) {
+          // Trigger link navigation behavior
+          items[focusedIndex].click();
+
+          if (onMenuItemSelected)
+            onMenuItemSelected(children[focusedIndex]);
         }
         break;
     }
@@ -62,6 +61,8 @@ function OptionsMenu({
     return () => window.removeEventListener("keydown", handleKeyDown);
   });
 
+  useEffect(() => autoFocusFirstFocusable(menuRef?.current), [menuRef]);
+
   return (
     <>
       <menu
@@ -72,6 +73,7 @@ function OptionsMenu({
         {React.Children.map(children, (child, index) =>
           React.cloneElement(child, {
             role: 'menuitem',
+            tabIndex: index,
             onClick: () => handleClick(index),
             className: ((index === focusedIndex) ? 'focused' : '')
           })

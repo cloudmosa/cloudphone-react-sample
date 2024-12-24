@@ -2,12 +2,6 @@
 
 :beginner: This is a beginner guide on [Cloud Phone](https://www.cloudfone.com/) widget development, created using [Vite](https://vite.dev/guide/), as a sample repository.
 
-## TODO
-
-[] Use react-router and create multipe pages
-[] Settings page: Let user select language
-[] More translations
-
 ## Prerequisites
 
 * [Node & npm](https://nodejs.org/en/download/)

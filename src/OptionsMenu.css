@@ -30,6 +30,11 @@ menu > * {
     white-space: nowrap;
 }
 
+menu > a {
+    text-decoration: none;
+    outline: none;
+}
+
 menu > *.focused,
 menu > *:focus,
 menu > *:active {
