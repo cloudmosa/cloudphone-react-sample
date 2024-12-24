@@ -47,6 +47,10 @@ footer > button {
     }
 }
 
+footer > button[disabled] {
+    pointer-events: none;
+}
+
 footer > button:nth-child(1) {
     align-content: start;
     text-align: start;

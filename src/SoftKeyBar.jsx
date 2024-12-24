@@ -1,8 +1,9 @@
-import MenuIcon from './assets/menu.svg?react'
-import BackIcon from './assets/back.svg?react'
 import PropTypes from 'prop-types'
+import { useEffect } from 'react'
+import MenuIcon from './assets/icons/menu.svg?react'
+import BackIcon from './assets/icons/back.svg?react'
+import SelectIcon from './assets/icons/select.svg?react'
 import './SoftKeyBar.css'
-import { useEffect } from 'react';
 
 function getIconFromName(name) {
   switch (name) {
@@ -10,6 +11,8 @@ function getIconFromName(name) {
       return <MenuIcon />;
     case 'back':
       return <BackIcon />;
+    case 'select':
+      return <SelectIcon />;
   }
 }
 
@@ -41,14 +44,22 @@ function SoftKeyBar({
 
   const renderButton = (position) => {
     const buttonConfig = buttons[position];
-    if (!buttonConfig) return null;
+    if (!buttonConfig)
+      return (
+        <button
+          key={position}
+          className="disabled"
+          disabled={true}
+          aria-disabled="true"></button>
+      );
 
-    const { text, icon, component } = buttonConfig;
+    const { text, icon, component, title } = buttonConfig;
 
     return (
       <button
         key={position}
         onClick={(e) => handleEvent(e, position)}
+        title={title}
       >
         {component || (
           <>
