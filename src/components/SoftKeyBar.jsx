@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 import { useEffect } from 'react'
-import MenuIcon from './assets/icons/menu.svg?react'
-import BackIcon from './assets/icons/back.svg?react'
-import SelectIcon from './assets/icons/select.svg?react'
+import MenuIcon from '../assets/icons/menu.svg?react'
+import BackIcon from '../assets/icons/back.svg?react'
+import SelectIcon from '../assets/icons/select.svg?react'
 import './SoftKeyBar.css'
 
 function getIconFromName(name) {

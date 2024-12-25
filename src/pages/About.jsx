@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router';
-import './App.css'
-import { autoFocus } from './focus';
-import Header from './Header'
-import SoftKeyBar from './SoftKeyBar'
+import './Home.css'
+import { autoFocus } from '../utils/focus';
+import Header from '../components/Header'
+import SoftKeyBar from '../components/SoftKeyBar'
 import { t } from 'i18next'
 
 function About() {

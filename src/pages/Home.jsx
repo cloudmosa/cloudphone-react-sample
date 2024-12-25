@@ -1,13 +1,13 @@
 /* eslint-disable react-refresh/only-export-components */
 import { useState } from 'react'
-import './App.css'
-import Header from './Header'
-import OptionsMenu from './OptionsMenu'
-import SoftKeyBar from './SoftKeyBar'
+import './Home.css'
+import Header from '../components/Header'
+import OptionsMenu from '../components/OptionsMenu'
+import SoftKeyBar from '../components/SoftKeyBar'
 import { t } from 'i18next'
 import { Link, useLocation, useNavigate } from 'react-router'
 import { withTranslation } from 'react-i18next'
-import { autoFocus } from './focus'
+import { autoFocus } from '../utils/focus'
 
 function AppComponent() {
   const location = useLocation();
@@ -48,10 +48,10 @@ function AppComponent() {
         onMenuItemSelected={onMenuItemSelected}
         visible={menuVisible}
         onClose={() => setMenuVisible(false)}>
-        <Link to="about">
+        <Link to="about" replace>
           {t('About')}
         </Link>
-        <Link to="settings">
+        <Link to="settings" replace>
           {t('Settings')}
         </Link>
         <a href="https://www.cloudfone.com/dev-privacy" target="_self">

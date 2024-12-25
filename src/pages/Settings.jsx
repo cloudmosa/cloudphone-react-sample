@@ -1,13 +1,13 @@
 /* eslint-disable react-refresh/only-export-components */
 import { useEffect, useState } from 'react'
-import './App.css'
-import Header from './Header'
-import SoftKeyBar from './SoftKeyBar'
+import './Home.css'
+import Header from '../components/Header'
+import SoftKeyBar from '../components/SoftKeyBar'
 import i18n from 'i18next'
 import { t } from 'i18next'
-import OptionsMenu from './OptionsMenu'
+import OptionsMenu from '../components/OptionsMenu'
 import { withTranslation } from 'react-i18next'
-import { autoFocus } from './focus'
+import { autoFocus } from '../utils/focus'
 import { useNavigate } from 'react-router'
 
 const getLanguageName = (contextLanguage, languageCode) => {
