@@ -20,6 +20,7 @@ const getLanguageName = (contextLanguage, languageCode) => {
 function SettingsComponent() {
   const navigate = useNavigate();
   const [languageMenuVisible, setLanguageMenuVisible] = useState(location.hash.includes('#menu'));
+  const availableLanguages = Object.keys(i18n.services.resourceStore.data);
 
   const handlePopState = () => {
     if (languageMenuVisible) {
@@ -76,7 +77,7 @@ function SettingsComponent() {
         onMenuItemSelected={onMenuItemSelected}
         visible={languageMenuVisible}
         onClose={() => setLanguageMenuVisible(false)}>
-        {Object.keys(i18n.services.resourceStore.data).map((langCode) =>
+        {availableLanguages.map((langCode) =>
           <span key={langCode}>{getLanguageName(i18n.resolvedLanguage, langCode)}</span>
         )}
       </OptionsMenu>
