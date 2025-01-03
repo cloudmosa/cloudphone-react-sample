@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 import './OptionsMenu.css'
 import React, { useEffect, useRef, useState } from 'react'
-import { autoFocusFirstFocusable } from '../utils/focus';
-import { useNavigate } from 'react-router';
+import { autoFocusFirstFocusable } from '../utils/focus'
+import { useNavigate } from 'react-router'
 
 function OptionsMenu({
   visible = false,
@@ -98,6 +98,7 @@ function OptionsMenu({
           React.cloneElement(child, {
             role: 'menuitem',
             tabIndex: index,
+            autoFocus: (index === focusedIndex),
             onClick: () => handleClick(index),
             className: ((index === focusedIndex) ? 'focused' : '')
           })

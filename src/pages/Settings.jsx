@@ -64,6 +64,7 @@ function SettingsComponent() {
         <div>
           <button
             ref={autoFocus}
+            autoFocus
             className='focused'
             role='menuitem'
             onClick={showLanguageSelector}>
